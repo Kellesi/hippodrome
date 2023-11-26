@@ -84,9 +84,10 @@ class HorseTest {
 
     @Test
     void moveCallsGetRandomDoubleWithDefinedParams() {
-        Horse horse = Mockito.spy(new Horse(NAME, POSITIVE_ARGUMENT, POSITIVE_ARGUMENT));
+        Horse horse = new Horse(NAME, POSITIVE_ARGUMENT, POSITIVE_ARGUMENT);
         try (MockedStatic<Horse> horseMockedStatic = Mockito.mockStatic(Horse.class)) {
             horse.move();
+
             horseMockedStatic.verify(() -> Horse.getRandomDouble(0.2, 0.9));
         }
     }
@@ -96,7 +97,7 @@ class HorseTest {
     void moveUsesCorrectFormula(double pseudoRandom) {
         double distance = 2;
         double speed = 2;
-        Horse horse = Mockito.spy(new Horse(NAME, distance, speed));
+        Horse horse = new Horse(NAME, distance, speed);
         try (MockedStatic<Horse> horseMockedStatic = Mockito.mockStatic(Horse.class)) {
             Mockito.when(Horse.getRandomDouble(0.2, 0.9)).thenReturn(pseudoRandom);
             horse.move();
